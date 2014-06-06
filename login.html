@@ -73,7 +73,7 @@ License: You must have a valid license purchased only from themeforest(the above
 		<!-- BEGIN LOGIN FORM -->
 		<form ng-submit="regC.addProfile()">
 		
-		  <div ng-show="regC.firstLogin()">
+		  <div ng-show="!regC.currentTab()">
 			<h3 class="form-title">Welcome to Cambrian {{profile.name}}</h3>
 			<div ng-show="regC.invalid()" class="alert alert-danger">
 				<button class="close" data-close="alert"></button>
@@ -89,13 +89,16 @@ License: You must have a valid license purchased only from themeforest(the above
 				</div>
 			</div>
 			<div class="form-actions">
-				<label class="checkbox">&nbsp;</label>
+				<button type="button" class="btn" ng-hide="regC.firstLogin()" id="btnCreate" ng-click="regC.setTab(true)">
+				<i class="m-icon-swapleft"></i> Cancel
+				</button>
 				<button type="submit" class="btn green pull-right" ng-disabled="regC.invalid() || regC.gotError()" id="btnCreate">
 				Create <i class="m-icon-swapright m-icon-white"></i>
 				</button>
 			</div>
 		  </div>
-		  <div ng-hide="regC.firstLogin()">
+		  <div ng-show="regC.currentTab()">
+
 			<div class="login-options">
 				<h4>Choose an account</h4>
 				<ul>
@@ -104,6 +107,11 @@ License: You must have a valid license purchased only from themeforest(the above
 					</li>
 				</ul>
 			</div>
+		<div class="form-actions">
+			<button type="button" class="btn green pull-right" ng-click="regC.setTab(false)" id="btnCreate">
+				Create <i class="m-icon-swapright m-icon-white"></i>
+			</button>
+		</div>
 		  </div>
 		</form>
 	</div>

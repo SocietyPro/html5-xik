@@ -13,6 +13,7 @@
 		self.maxlength=config.maxiLength;
 		self.minlength=config.minLength;
 		self.page = 0;
+		this.tab = true;
 		
 
 		// private methods
@@ -32,6 +33,14 @@
 
 		this.firstLogin = function() {
 			return self.profiles.length === 0;
+		};
+
+		this.currentTab = function() {
+			return (self.profiles.length !== 0) && this.tab;
+		};
+
+		this.setTab = function(value) {
+			this.tab = value;
 		};
 
 		this.gotError = function() {
