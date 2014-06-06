@@ -9,16 +9,16 @@
 		self.profiles = [];
 		
 		// model variables
-		self.user = {};
-		self.maxlength=config.maxiLength;
-		self.minlength=config.minLength;
-		self.page = 0;
-		this.tab = true;
+		self.user = {}; //Current User
+		self.maxlength=config.maxiLength; //Maxlength of username
+		self.minlength=config.minLength; //Minlength of username
+		self.page = 0; // 0 to create/list page, 1 for welcome page
+		this.tab = true; //true for list, false for create
 		
 
 		// private methods
-
-		var appPageSwitch = function(value) {
+		// appPageSwith: switch between pages
+		var appPageSwitch = function(value) { 
 			$scope.$apply(function() {
 				self.page = value;
 			});
@@ -26,28 +26,28 @@
 
 
 		// public methods
-
+		// getPage: get current page
 		this.getPage = function() {
 			return this.page;
 		};
-
+		// firstLogin: checks if is the firt time you log in
 		this.firstLogin = function() {
 			return self.profiles.length === 0;
 		};
-
+		// currentTab: returns the current tab
 		this.currentTab = function() {
 			return (self.profiles.length !== 0) && this.tab;
 		};
-
+		// setTab: set the current tab (false for create, true for list)
 		this.setTab = function(value) {
 			this.tab = value;
 		};
-
+		// gotError: returns true if the username is empty
 		this.gotError = function() {
 			if (this.user.name === "") this.user.name = undefined;
 			return (this.user.name === undefined);
 		};
-
+		// invalid: checcks for invalid characters
 		this.invalid = function() {
 			if (this.user.name === undefined) return false;
 			else {
@@ -55,14 +55,14 @@
                 return /[^\w\s]/.test(this.user.name);
             }
 		};
-
+		// selectProfile: change between profiles
 		this.selectProfile = function(profile) {
 			Cambrian.Profile.Switch(profile.id, function(err, profileObj) {
 				self.user = profileObj;
 				appPageSwitch(2);
 			});
 		}
-
+		// addProfile: create profile
 		this.addProfile = function() {
 			var self = this;
 			Cambrian.Profile.Create(this.user, function(err, profile) {
