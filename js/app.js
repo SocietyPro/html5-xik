@@ -35,6 +35,7 @@
 		};
 
 		this.gotError = function() {
+			if (this.user.name === "") this.user.name = undefined;
 			return (this.user.name === undefined);
 		};
 
@@ -55,8 +56,6 @@
 
 		this.addProfile = function() {
 			var self = this;
-			
-			if (this.user.name === "") this.user.name = undefined;
 			Cambrian.Profile.Create(this.user, function(err, profile) {
 
 				//console.log("Create" + self.user + " == " + profile);
