@@ -2,7 +2,7 @@
 
 /* App Module */
 (function() {
-	var app = angular.module('cambrianRegisterApp',[]);
+	var app = angular.module('cambrianRegisterApp',['ui.utils']);
 
 	app.controller('registerController', ['$scope', function ($scope) {
 		var self = this;
@@ -24,6 +24,12 @@
 			});
 		};
 
+		this.keypressCallback = function() {
+        	console.log('Voila!');
+        	if (!this.invalid() && !this.gotError()) {
+        		this.addProfile();
+        	}
+    	};
 
 		// public methods
 		// getPage: get current page
