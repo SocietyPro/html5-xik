@@ -4,6 +4,12 @@
 (function() {
 	var app = angular.module('cambrianRegisterApp',[]);
 
+
+	/**
+	* Register controller for the page
+	* @class registerController
+	*
+	*/
 	app.controller('registerController', ['$scope', function ($scope) {
 		var self = this;
 		self.profiles = [];
@@ -24,21 +30,43 @@
 			});
 		};
 
-
+		//
 		// public methods
-		// getPage: get current page
+		//
+
+
+		/**
+		* Gets the current page index
+		* @method getPage
+		*
+		*/
 		this.getPage = function() {
 			return this.page;
 		};
-		// firstLogin: checks if is the firt time you log in
+
+		/**
+		* checks if is the firt time you log in
+		* @method firstLogin
+		*/
 		this.firstLogin = function() {
 			return self.profiles.length === 0;
 		};
-		// currentTab: returns the current tab
+		
+
+		/**
+		* returns the current tab
+		*
+		* @method currentTab
+		*/
 		this.currentTab = function() {
 			return (self.profiles.length !== 0) && this.tab;
 		};
-		// setTab: set the current tab (false for create, true for list)
+		
+
+		/**
+		* set the current tab (false for create, true for list)
+		* @method setTab
+		*/
 		this.setTab = function(value) {
 			this.tab = value;
 		};
