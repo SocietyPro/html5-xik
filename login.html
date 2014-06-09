@@ -18,54 +18,153 @@ License: You must have a valid license purchased only from themeforest(the above
 <!-- BEGIN HEAD -->
 <head>
 <meta charset="utf-8"/>
-<title>Cambrian - Profile</title>
+<title>Cambrian - Login</title>
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <meta content="" name="description"/>
 <meta content="" name="author"/>
 <!-- BEGIN GLOBAL MANDATORY STYLES -->
-
 <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" rel="stylesheet" type="text/css"/>
 <link href="assets/global/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
 <link href="assets/global/plugins/simple-line-icons/simple-line-icons.min.css" rel="stylesheet" type="text/css"/>
 <link href="assets/global/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
 <link href="assets/global/plugins/uniform/css/uniform.default.css" rel="stylesheet" type="text/css"/>
 <!-- END GLOBAL MANDATORY STYLES -->
-<!-- BEGIN PAGE LEVEL PLUGIN STYLES -->
-<link href="assets/global/plugins/bootstrap-daterangepicker/daterangepicker-bs3.css" rel="stylesheet" type="text/css"/>
-<link href="assets/global/plugins/fullcalendar/fullcalendar/fullcalendar.css" rel="stylesheet" type="text/css"/>
-<link href="assets/global/plugins/jqvmap/jqvmap/jqvmap.css" rel="stylesheet" type="text/css"/>
-<!-- END PAGE LEVEL PLUGIN STYLES -->
-<!-- BEGIN PAGE STYLES -->
-<link href="assets/admin/pages/css/tasks.css" rel="stylesheet" type="text/css"/>
-<!-- END PAGE STYLES -->
 <!-- BEGIN PAGE LEVEL STYLES -->
 <link href="assets/global/plugins/select2/select2.css" rel="stylesheet" type="text/css"/>
-<!--<link href="assets/global/plugins/select2/select2-metronic.css" rel="stylesheet" type="text/css"/>-->
+<link href="assets/global/plugins/select2/select2-metronic.css" rel="stylesheet" type="text/css"/>
 <link href="assets/admin/pages/css/login.css" rel="stylesheet" type="text/css"/>
 <!-- END PAGE LEVEL SCRIPTS -->
 <!-- BEGIN THEME STYLES -->
 <link href="assets/global/css/components.css" rel="stylesheet" type="text/css"/>
 <link href="assets/global/css/plugins.css" rel="stylesheet" type="text/css"/>
 <link href="assets/admin/layout/css/layout.css" rel="stylesheet" type="text/css"/>
-<link href="assets/admin/layout/css/themes/default.css" rel="stylesheet" type="text/css" id="style_color"/>
+<link id="style_color" href="assets/admin/layout/css/themes/default.css" rel="stylesheet" type="text/css"/>
 <link href="assets/admin/layout/css/custom.css" rel="stylesheet" type="text/css"/>
 <!-- END THEME STYLES -->
 <link rel="shortcut icon" href="favicon.ico"/>
 <script type="text/javascript" src="js/filer.js"></script>
 <script type="text/javascript" src="bower_components/angular/angular.js"></script>
-<script src="bower_components/angular-route/angular-route.js"></script>
+<script type="text/javascript" src="bower_components/angular-ui-utils/ui-utils.js"></script>
 <script type="text/javascript" src="js/config.js"></script>
 <script type="text/javascript" src="js/Cambrian.js"></script>
 <script type="text/javascript" src="js/app.js"></script>
 </head>
 <!-- BEGIN BODY -->
+<!-- DOC: Apply "page-header-fixed-mobile" and "page-footer-fixed-mobile" class to body element to force fixed header or footer in mobile devices -->
+<!-- DOC: Apply "page-sidebar-closed" class to the body and "page-sidebar-menu-closed" class to the sidebar menu element to hide the sidebar by default -->
+<!-- DOC: Apply "page-sidebar-hide" class to the body to make the sidebar completely hidden on toggle -->
+<!-- DOC: Apply "page-sidebar-closed-hide-logo" class to the body element to make the logo hidden on sidebar toggle -->
+<!-- DOC: Apply "page-sidebar-hide" class to body element to completely hide the sidebar on sidebar toggle -->
+<!-- DOC: Apply "page-sidebar-fixed" class to have fixed sidebar -->
+<!-- DOC: Apply "page-footer-fixed" class to the body element to have fixed footer -->
+<!-- DOC: Apply "page-sidebar-reversed" class to put the sidebar on the right side -->
+<!-- DOC: Apply "page-full-width" class to the body element to have full width page without the sidebar menu -->
+<body class="login" ng-controller="registerController as regC">
+<!-- BEGIN LOGO -->
 
-
-<body>
-
-	<div ng-view>
+	<div class="logo">
+		<img src="assets/admin/layout/img/logo-big.png" alt=""/>
 	</div>
+	<!-- END LOGO -->
+
+
+	<!-- BEGIN SIDEBAR TOGGLER BUTTON -->
+	<div class="menu-toggler sidebar-toggler">
+	</div>
+	<!-- END SIDEBAR TOGGLER BUTTON -->
+
+
+	<!-- BEGIN LOGIN -->
+	<div class="content" ng-show="regC.getPage() === 1"><!-- shows div if current page equals one -->
+		<!-- BEGIN LOGIN FORM -->
+		<form ng-submit="regC.addProfile()"><!-- On submit create profile -->
+		  <div ng-show="!regC.currentTab()"><!-- Show div if current tab is false -->
+			<h3 class="form-title">Welcome to Cambrian {{profile.name}}</h3>
+			<div ng-show="regC.invalid()" class="alert alert-danger"><!-- Show if usename has invalid character -->
+				<button class="close" data-close="alert"></button>
+				<span id="InvalidCharErr">
+				Invalid Character. </span>
+			</div>
+			<div class="form-group">
+				<!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
+				<label class="control-label visible-ie8 visible-ie9">Username</label>
+				<div class="input-icon">
+					<i class="fa fa-user"></i>
+					<input ng-model="regC.user.name" class="form-control placeholder-no-fix" type="text" autocomplete="off" placeholder="Username" maxlength="{{regC.maxlength}}" id="txtName"/>   
+				</div>
+			</div>
+			<div class="form-actions">
+				<button type="button" class="btn" ng-hide="regC.firstLogin()" id="btnCreate" ng-click="regC.setTab(true)">
+				<i class="m-icon-swapleft"></i> Cancel<!-- Returns to List View (if is the first login hide)-->
+				</button>
+				<button type="submit" class="btn green pull-right" ng-disabled="regC.invalid() || regC.gotError()" id="btnCreate">
+				Create <i class="m-icon-swapright m-icon-white"></i> <!-- Create Profile and go to welcome page (if has error the button is disabled) -->
+				</button>
+			</div>
+		  </div>
+		  <div ng-show="regC.currentTab()"><!-- show div if current tab is true -->
+
+			<div class="login-options">
+				<h4>Choose an account</h4>
+				<ul>
+					<li ng-repeat="profile in regC.profiles"><!-- repeat for each profile -->
+						<a href ng-click="regC.selectProfile(profile)">{{profile.name}}</a>
+					</li>
+				</ul>
+			</div>
+		<div class="form-actions">
+			<button type="button" class="btn green pull-right" ng-click="regC.setTab(false)" id="btnCreate">
+				Create Profile<i class="m-icon-swapright m-icon-white"></i><!-- Create more profiles, switch to Create View -->
+			</button>
+		</div>
+		  </div>
+		</form>
+	</div>
+	<!-- END LOGIN -->
+
+
+
+
+
+	<div class="content" ng-show="regC.getPage() === 2">
+		
+
+		<!-- BEGIN PAGE HEADER-->
+		<div class="row">
+			<div class="col-md-12">
+				<!-- BEGIN PAGE TITLE & BREADCRUMB-->
+				<h3 class="page-title">
+					<h1 id="welcomeProfile">Welcome {{regC.user.name}} </h1>
+				</h3>
+				<ul class="page-breadcrumb breadcrumb">
+					<li>
+						<i class="fa fa-home"></i>
+						<a href="index.html">Home</a>
+						<i class="fa fa-angle-right"></i>
+					</li>
+					<li class="pull-right">
+						<div id="dashboard-report-range" class="dashboard-date-range tooltips" data-placement="top" data-original-title="Change dashboard date range">
+							<i class="fa fa-calendar"></i>
+							<span></span>
+							<i class="fa fa-angle-down"></i>
+						</div>
+					</li>
+				</ul>
+				<!-- END PAGE TITLE & BREADCRUMB-->
+			</div>
+		</div>
+		<!-- END PAGE HEADER-->
+
+	</div>
+
+
+
+	<!-- BEGIN COPYRIGHT -->
+	<div class="copyright">
+		 2014 &copy; Cambrian. 
+	</div>
+	<!-- END COPYRIGHT -->
 
 <!-- BEGIN JAVASCRIPTS(Load javascripts at bottom, this will reduce page load time) -->
 <!-- BEGIN CORE PLUGINS -->
@@ -75,9 +174,6 @@ License: You must have a valid license purchased only from themeforest(the above
 	<![endif]-->
 <script src="assets/global/plugins/jquery-1.11.0.min.js" type="text/javascript"></script>
 <script src="assets/global/plugins/jquery-migrate-1.2.1.min.js" type="text/javascript"></script>
-<!-- IMPORTANT! Load jquery-ui-1.10.3.custom.min.js before bootstrap.min.js to fix bootstrap tooltip conflict with jquery ui tooltip -->
-<script src="assets/global/plugins/jquery-ui/jquery-ui-1.10.3.custom.min.js" type="text/javascript"></script>
-<script src="assets/global/plugins/jquery-migrate-1.2.1.min.js" type="text/javascript"></script>
 <script src="assets/global/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
 <script src="assets/global/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js" type="text/javascript"></script>
 <script src="assets/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js" type="text/javascript"></script>
@@ -85,51 +181,20 @@ License: You must have a valid license purchased only from themeforest(the above
 <script src="assets/global/plugins/jquery.cokie.min.js" type="text/javascript"></script>
 <script src="assets/global/plugins/uniform/jquery.uniform.min.js" type="text/javascript"></script>
 <!-- END CORE PLUGINS -->
-
 <!-- BEGIN PAGE LEVEL PLUGINS -->
-<script src="assets/global/plugins/jqvmap/jqvmap/jquery.vmap.js" type="text/javascript"></script>
-<script src="assets/global/plugins/jqvmap/jqvmap/maps/jquery.vmap.russia.js" type="text/javascript"></script>
-<script src="assets/global/plugins/jqvmap/jqvmap/maps/jquery.vmap.world.js" type="text/javascript"></script>
-<script src="assets/global/plugins/jqvmap/jqvmap/maps/jquery.vmap.europe.js" type="text/javascript"></script>
-<script src="assets/global/plugins/jqvmap/jqvmap/maps/jquery.vmap.germany.js" type="text/javascript"></script>
-<script src="assets/global/plugins/jqvmap/jqvmap/maps/jquery.vmap.usa.js" type="text/javascript"></script>
-<script src="assets/global/plugins/jqvmap/jqvmap/data/jquery.vmap.sampledata.js" type="text/javascript"></script>
-<script src="assets/global/plugins/flot/jquery.flot.min.js" type="text/javascript"></script>
-<script src="assets/global/plugins/flot/jquery.flot.resize.min.js" type="text/javascript"></script>
-<script src="assets/global/plugins/flot/jquery.flot.categories.min.js" type="text/javascript"></script>
-<script src="assets/global/plugins/jquery.pulsate.min.js" type="text/javascript"></script>
-<script src="assets/global/plugins/bootstrap-daterangepicker/moment.min.js" type="text/javascript"></script>
-<script src="assets/global/plugins/bootstrap-daterangepicker/daterangepicker.js" type="text/javascript"></script>
-<!-- IMPORTANT! fullcalendar depends on jquery-ui-1.10.3.custom.min.js for drag & drop support -->
-<script src="assets/global/plugins/fullcalendar/fullcalendar/fullcalendar.min.js" type="text/javascript"></script>
-<script src="assets/global/plugins/jquery-easypiechart/jquery.easypiechart.min.js" type="text/javascript"></script>
-<script src="assets/global/plugins/jquery.sparkline.min.js" type="text/javascript"></script>
 <script src="assets/global/plugins/jquery-validation/js/jquery.validate.min.js" type="text/javascript"></script>
-<script src="assets/global/plugins/select2/select2.min.js" type="text/javascript"></script>
+<script type="text/javascript" src="assets/global/plugins/select2/select2.min.js"></script>
 <!-- END PAGE LEVEL PLUGINS -->
-
 <!-- BEGIN PAGE LEVEL SCRIPTS -->
 <script src="assets/global/scripts/metronic.js" type="text/javascript"></script>
 <script src="assets/admin/layout/scripts/layout.js" type="text/javascript"></script>
 <script src="assets/admin/pages/scripts/login.js" type="text/javascript"></script>
-<script src="assets/admin/pages/scripts/tasks.js" type="text/javascript"></script>
 <!-- END PAGE LEVEL SCRIPTS -->
-
-
 <script>
 		jQuery(document).ready(function() {     
 		  Metronic.init(); // init metronic core components
 Layout.init(); // init current layout
 		  Login.init();
-		  Index.init();   
-   Index.initDashboardDaterange();
-   Index.initJQVMAP(); // init index page's custom scripts
-   Index.initCalendar(); // init index page's custom scripts
-   Index.initCharts(); // init index page's custom scripts
-   Index.initChat();
-   Index.initMiniCharts();
-   Index.initIntro();
-   Tasks.initDashboardWidget();
 		});
 	</script>
 <!-- END JAVASCRIPTS -->
