@@ -2,7 +2,20 @@
 
 /* App Module */
 (function() {
-	var app = angular.module('cambrianRegisterApp',[]);
+	var app = angular.module('cambrianRegisterApp',['ngRoute']);
+
+	app.config(['$routeProvider',
+		function($routeProvider) {
+			$routeProvider.
+				when('/login', {
+					templateUrl: 'partials/login.html',
+					controller: 'registerController',
+					controllerAs: 'regC'
+				}).
+				otherwise({
+					redirectTo: '/login'
+				});
+		}]);
 
 
 	/**
