@@ -2,21 +2,7 @@
 
 /* App Module */
 (function() {
-	var app = angular.module('cambrianRegisterApp',['ngRoute']);
-
-	app.config(['$routeProvider',
-		function($routeProvider) {
-			$routeProvider.
-				when('/login', {
-					templateUrl: 'partials/login.html',
-					controller: 'registerController',
-					controllerAs: 'regC'
-				}).
-				otherwise({
-					redirectTo: '/login'
-				});
-		}]);
-
+    var app = angular.module('cambrianRegisterApp',['ui.utils']);
 
 	/**
 	* Register controller for the page
@@ -46,6 +32,15 @@
 		//
 		// public methods
 		//
+
+		/**
+		* Handles the enter key press event
+		*/
+		this.keypressCallback = function() {
+			if (!this.invalid() && !this.gotError()) {
+				this.addProfile();
+			}
+		};
 
 
 		/**
