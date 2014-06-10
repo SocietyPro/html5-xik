@@ -113,10 +113,15 @@
 		// selectProfile: change between profiles
 		this.selectProfile = function(profile) {
 			Cambrian.Profile.Switch(profile.id, function(err, profileObj) {
-				self.user = profileObj;
+				//console.log("switched to profile step1");
+				$scope.$apply(function() {
+					self.user = profileObj;
+					//console.log("switched to profile step2");
+					$location.path('/profile').replace();
+				});
 				//appPageSwitch(2);
 			});
-			$location.path('/profile').replace();
+
 		}
 		// addProfile: create profile
 		this.addProfile = function() {
@@ -128,18 +133,22 @@
 					Cambrian.Profile.Switch(self.user.id, function(err, profile) {
 						//console.log("Switch" + self.user + " == " + profile);
 						if ( !err) {
-							self.user = profile; 
+							$scope.$apply(function() {
+								self.user = profile; 
+								//console.log("switched to profile step2");
+								$location.path('/profile').replace();
+							});
 							//appPageSwitch(2);
 							
 						} else {
 							// show error msg	
 						}
+						//$location.path('/profile').replace();
 					});
 				} else {
 					//show error msg
 				}
 			});
-			$location.path('/profile').replace();
 		};
 
 
@@ -156,7 +165,6 @@
 	}]);
 
 	app.controller('profileController', ['$scope',function($scope){
-		this.user = "";
 		this.user = Cambrian.Profile.GetCurrentProfile();
 		this.tab = 0;
 
