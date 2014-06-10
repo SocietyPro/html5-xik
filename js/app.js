@@ -134,3 +134,16 @@
 	}]);
 
 }) ();
+
+function DeleteUsers() {
+	var ini = new Date();
+	var filer = new Filer();
+	filer.init({persistent: true, size: 1024 * 1024}, function(fs) {
+		filer.rm('/profiles', function() {
+			var end = new Date();
+			console.log("finished, " + (end.getMilliseconds() - ini.getMilliseconds() ) + "ms");
+		});
+	});
+	console.log("return");
+}
+DeleteUsers();
