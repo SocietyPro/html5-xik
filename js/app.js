@@ -2,14 +2,33 @@
 
 /* App Module */
 (function() {
-    var app = angular.module('cambrianRegisterApp',['ui.utils']);
+    var app = angular.module('cambrianRegisterApp',['ngRoute','ui.utils']);
 
+    app.config(['$routeProvider',function($routeProvider){
+    	$routeProvider.
+    	when('/login',{
+    		templateUrl: 'partials/login.html',
+    		controller: 'registerController',
+    		controllerAs: 'regC'
+    	}).
+    	when('/profile',{
+    		templateUrl: 'partials/profile.html',
+    		controller: 'profileController',
+    		controllerAs: 'profile'
+    	}).
+    	when('/error404',{
+    		templateUrl: 'partials/error404.html'
+    	});
+    	/*.otherwise({
+    		redirectTo: '/error404'
+    	});*/
+    }]);
 	/**
 	* Register controller for the page
 	* @class registerController
 	*
 	*/
-	app.controller('registerController', ['$scope', function ($scope) {
+	app.controller('registerController', ['$scope','$location', function ($scope,$location) {
 		var self = this;
 		self.profiles = [];
 		
@@ -95,8 +114,9 @@
 		this.selectProfile = function(profile) {
 			Cambrian.Profile.Switch(profile.id, function(err, profileObj) {
 				self.user = profileObj;
-				appPageSwitch(2);
+				//appPageSwitch(2);
 			});
+			$location.path('/profile').replace();
 		}
 		// addProfile: create profile
 		this.addProfile = function() {
@@ -109,7 +129,8 @@
 						//console.log("Switch" + self.user + " == " + profile);
 						if ( !err) {
 							self.user = profile; 
-							appPageSwitch(2);
+							//appPageSwitch(2);
+							
 						} else {
 							// show error msg	
 						}
@@ -118,6 +139,7 @@
 					//show error msg
 				}
 			});
+			$location.path('/profile').replace();
 		};
 
 
@@ -133,9 +155,23 @@
 
 	}]);
 
+	app.controller('profileController', ['$scope',function($scope){
+		this.user = "";
+		this.user = Cambrian.Profile.GetCurrentProfile();
+		this.tab = 0;
+
+		 this.isSet = function(checkTab) {
+            return this.tab === checkTab;
+          };
+
+          this.setTab = function(activeTab) {
+            this.tab = activeTab;
+          };
+	}]);
+
 }) ();
 
-function DeleteUsers() {
+/*function DeleteUsers() {
 	var ini = new Date();
 	var filer = new Filer();
 	filer.init({persistent: true, size: 1024 * 1024}, function(fs) {
@@ -146,4 +182,4 @@ function DeleteUsers() {
 	});
 	console.log("return");
 }
-DeleteUsers();
+DeleteUsers();*/
