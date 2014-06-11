@@ -1,10 +1,19 @@
-/** AppCambrian.js **/
+/**
+* @namespace Cambrian
+*/
 
 var Cambrian = {
+
+	/**
+	* @class
+	* @classdesc Cambrian.Profile
+	*/
 	Profile: {
 
 		/**
 		* Stores the current profile
+		*
+		* @private
 		*/
 		currentProfile: null,
 
@@ -13,7 +22,8 @@ var Cambrian = {
 		* 	profileInfo {
 		* 		name:
 		*	}
-		*
+		*	
+		*	@method Create
 		*	@returns The same profile filled with the new id
 		*/
 		Create: function(profileInfo, callback) {
@@ -50,7 +60,9 @@ var Cambrian = {
 		
 		/**
 		* Returns an array with the existing profiles
-		*	@returns profiles array
+		*
+		* @method List
+		* @returns profiles array
 		*/
 		List: function(callback) {
 			var filer = new Filer();
@@ -96,6 +108,8 @@ var Cambrian = {
 
 		/**
 		* Switches to the given profile id
+		*
+		* 	@method Switch
 		*	@returns the profile if it exists or null otherwise
 		*/
 		Switch: function(profileId, callback) {
@@ -126,6 +140,8 @@ var Cambrian = {
 
 		/**
 		* Returns the current profile
+		*
+		* @method GetCurrentProfile
 		*/
 		GetCurrentProfile: function() {
 			return Cambrian.Profile.currentProfile;
