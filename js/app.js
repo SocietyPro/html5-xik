@@ -5,22 +5,25 @@
     var app = angular.module('cambrianRegisterApp',['ngRoute','ui.utils']);
 
     app.config(['$routeProvider',function($routeProvider){
-    	$routeProvider.
-    	when('/login',{
-    		templateUrl: 'partials/login.html',
-    		controller: 'registerController',
-    		controllerAs: 'regC'
-    	}).
-    	when('/profile',{
-    		templateUrl: 'partials/profile.html',
-    		controller: 'profileController',
-    		controllerAs: 'profile'
-    	}).
-    	when('/error404',{
-    		templateUrl: 'partials/error404.html'
-    	}).otherwise({
-    		redirectTo: '/login'
-    	});
+    	$routeProvider
+			.when('/login',{
+				templateUrl: 'partials/login.html',
+				controller: 'registerController',
+				controllerAs: 'regC'
+			})
+			.when('/profile',{
+				templateUrl: 'partials/profile.html',
+				controller: 'profileController',
+				controllerAs: 'profile'
+			})
+			.when('/error404',{
+				templateUrl: 'partials/error404.html'
+			})
+			.otherwise({
+				redirectTo: '/login'
+			});
+			
+		
     }]);
 	/**
 	* Register controller for the page
@@ -168,25 +171,25 @@
 		this.tab = 0;
 		this.aboutTab = 0;
 
-		 this.isSet = function(checkTab) {
-            return this.tab === checkTab;
-          };
+		this.isSet = function(checkTab) {
+			return this.tab === checkTab;
+		};
 
-          this.setTab = function(activeTab) {
-            this.tab = activeTab;
-          };
+		this.setTab = function(activeTab) {
+			this.tab = activeTab;
+		};
 
-          this.isSetAboutTab = function(checkTab) {
-            return this.aboutTab === checkTab;
-          };
+		this.isSetAboutTab = function(checkTab) {
+			return this.aboutTab === checkTab;
+		};
 
-          this.setAboutTab = function(activeTab) {
-            this.aboutTab = activeTab;
-          };
+		this.setAboutTab = function(activeTab) {
+			this.aboutTab = activeTab;
+		};
 
-          this.isFieldNull = function(field) {
-          	return field === undefined || field === null || field === "";
-          };
+		this.isFieldNull = function(field) {
+			return field === undefined || field === null || field === "";
+		};
 	}]);
 
 }) ();
