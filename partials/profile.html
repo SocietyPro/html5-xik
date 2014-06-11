@@ -261,13 +261,6 @@
 							<a href="index.html">Home</a>
 							<i class="fa fa-angle-right"></i>
 						</li>
-						<li>
-							<a href="#">Extra</a>
-							<i class="fa fa-angle-right"></i>
-						</li>
-						<li>
-							<a href="#">User Profile</a>
-						</li>
 					</ul>
 					<!-- END PAGE TITLE & BREADCRUMB-->
 				</div>
@@ -405,63 +398,63 @@
 								<div class="row profile-account">
 									<div class="col-md-3">
 										<ul class="ver-inline-menu tabbable margin-bottom-10">
-											<li class="active">
-												<a data-toggle="tab" href="#tab_1-1">
+											<li ng-class="{active:profile.isSetAboutTab(0)}">
+												<a href ng-click="profile.setAboutTab(0)">
 												<i class="fa fa-cog"></i> Personal info </a>
 												<span class="after">
 												</span>
 											</li>
-											<li>
-												<a data-toggle="tab" href="#tab_2-2">
+											<li ng-class="{active:profile.isSetAboutTab(1)}">
+												<a href ng-click="profile.setAboutTab(1)">
 												<i class="fa fa-picture-o"></i> Change Avatar </a>
 											</li>
-											<li>
-												<a data-toggle="tab" href="#tab_3-3">
+											<li ng-class="{active:profile.isSetAboutTab(2)}">
+												<a href ng-click="profile.setAboutTab(2)">
 												<i class="fa fa-lock"></i> Change Password </a>
 											</li>
 										</ul>
 									</div>
 										<div class="col-md-9">
 										<div class="tab-content">
-											<div id="tab_1-1" class="tab-pane active">
+											<div class="tab-pane" ng-class="{active: profile.isSetAboutTab(0) }" ng-show="profile.isSetAboutTab(0)">
 												<form role="form" action="#">
-													<div class="form-group">
+													<div class="form-group" ng-hide="profile.isFieldNull(profile.user.first_name)">
 														<label class="control-label">First Name</label>
-														<input type="text" placeholder="John" class="form-control"/>
+														<input id="txtFirstName" type="text" placeholder="{{profile.user.first_name}}" class="form-control" disabled/>
 													</div>
-													<div class="form-group">
+													<div class="form-group" ng-hide="profile.isFieldNull(profile.user.last_name)">
 														<label class="control-label">Last Name</label>
-														<input type="text" placeholder="Doe" class="form-control"/>
+														<input id="txtLastName" type="text" placeholder="{{profile.user.last_name}}" class="form-control" disabled/>
 													</div>
-													<div class="form-group">
+													<div class="form-group" ng-hide="profile.isFieldNull(profile.user.mobile_number)">
 														<label class="control-label">Mobile Number</label>
-														<input type="text" placeholder="+1 646 580 DEMO (6284)" class="form-control"/>
+														<input id="txtMobileNumber" type="text" placeholder="{{profile.user.mobile_number}}" class="form-control" disabled/>
 													</div>
-													<div class="form-group">
-														<label class="control-label">Email address</label>
-														<input type="text" placeholder="user@example.com" class="form-control"/>
-													</div>
-													<div class="form-group">
+													<div class="form-group" ng-hide="profile.isFieldNull(profile.user.email)">
+														<label id="txtEmail" class="control-label">Email address</label>
+														<input type="text" placeholder="{{profile.user.email}}" class="form-control" disabled/>
+													</div> 
+													<div class="form-group" ng-hide="profile.isFieldNull(profile.user.FGP_fingerprint)">
 														<label class="control-label">PGP Key Fingerprint</label>
-														<input type="text" placeholder="43:51:43:a1:b5:fc:8b:b7:0a:3a:a9:b1:0f:66:73:a8" class="form-control"/>
+														<input id="txtFGP" type="text" placeholder="{{profile.user.FGP_fingerprint}}" class="form-control" disabled/>
 													</div>
-													<div class="form-group">
+													<div class="form-group" ng-hide="profile.isFieldNull(profile.user.bitcoin_address)">
 														<label class="control-label">Bitcoin Address</label>
-														<input type="text" placeholder="31uEbMgunupShBVTewXjtqbBv5MndwfXhb" class="form-control"/>
+														<input id="txtBitcoinAddress" type="text" placeholder="{{profile.user.bitcoin_address}}" class="form-control"/ disabled>
 													</div>
-													<div class="form-group">
+													<div class="form-group" ng-hide="profile.isFieldNull(profile.user.skype_id)">
 														<label class="control-label">Skype ID</label>
-														<input type="text" placeholder="john1234" class="form-control"/>
+														<input id="txtSkypeId" type="text" placeholder="{{profile.user.skype_id}}" class="form-control" disabled/>
 													</div>
-													<div class="margiv-top-10">
+													<!--<div class="margiv-top-10">
 														<a href="#" class="btn green">
 														Save Changes </a>
 														<a href="#" class="btn default">
 														Cancel </a>
-													</div>
+													</div>-->
 												</form>
 											</div>
-											<div id="tab_2-2" class="tab-pane">
+											<div class="tab-pane" ng-class="{active: profile.isSetAboutTab(1) }" ng-show="profile.isSetAboutTab(1)">
 												<p>
 													 Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod.
 												</p>
@@ -500,7 +493,7 @@
 													</div>
 												</form>
 											</div>
-											<div id="tab_3-3" class="tab-pane">
+											<div class="tab-pane" ng-class="{active: profile.isSetAboutTab(2) }" ng-show="profile.isSetAboutTab(2)">
 												<form action="#">
 													<div class="form-group">
 														<label class="control-label">Current Password</label>
@@ -546,7 +539,7 @@
 <!-- BEGIN FOOTER -->
 <div class="page-footer">
 	<div class="page-footer-inner">
-		 2014 &copy; Metronic by keenthemes.
+		 2014 &copy; Cambrian.
 	</div>
 	<div class="page-footer-tools">
 		<span class="go-top">

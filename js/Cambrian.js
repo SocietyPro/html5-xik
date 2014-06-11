@@ -1,10 +1,19 @@
-/** AppCambrian.js **/
+/**
+* @namespace Cambrian
+*/
 
 var Cambrian = {
+
+	/**
+	* @class
+	* @classdesc Cambrian.Profile
+	*/
 	Profile: {
 
 		/**
 		* Stores the current profile
+		*
+		* @private
 		*/
 		currentProfile: null,
 
@@ -12,8 +21,17 @@ var Cambrian = {
 		*	Creates a new profile
 		* 	profileInfo {
 		* 		name:
+				id:
+				first_name:
+				last_name:
+				mobile_number:
+				email:
+				FGP_fingerprint:
+				bitcoin_address:
+				skype_id:
 		*	}
-		*
+		*	
+		*	@method Create
 		*	@returns The same profile filled with the new id
 		*/
 		Create: function(profileInfo, callback) {
@@ -50,7 +68,9 @@ var Cambrian = {
 		
 		/**
 		* Returns an array with the existing profiles
-		*	@returns profiles array
+		*
+		* @method List
+		* @returns profiles array
 		*/
 		List: function(callback) {
 			var filer = new Filer();
@@ -96,36 +116,60 @@ var Cambrian = {
 
 		/**
 		* Switches to the given profile id
+		*
+		* 	@method Switch
 		*	@returns the profile if it exists or null otherwise
 		*/
 		Switch: function(profileId, callback) {
 			
-			Cambrian.Profile.List(function(err, profilesList) {
-				var nextProfile 	= null,
-					error 			= null;
+			Cambrian.Profile.GetInfo(profileId, function(err, profileInfo) {
 
-				for(var i=0; i < profilesList.length; i++) {
-					if ( profilesList[i]["id"] == profileId) {
-						nextProfile = profilesList[i];
-					}
-				}
-
-				if ( nextProfile != null ) {
-					Cambrian.Profile.currentProfile = nextProfile;
+				if ( profileInfo != null ) {
+					Cambrian.Profile.currentProfile = profileInfo;
 				} else {
-					error = "Profile does not exist";
+					err = "Profile does not exist";
 				}
 
-				console.log("switched to profile " + ((nextProfile != null ) ? nextProfile.name : "[No profile]") );
+				//console.log("switched to profile " + ((profileInfo != null ) ? profileInfo.name : "[No profile]") );
 				if ( typeof callback == 'function') {
-					callback(error, nextProfile);
+					callback(err, profileInfo);
 				}
 			});
 
 		},
 
 		/**
+		* Gets the profile info for a given id
+		*
+		* @method GetInfo
+		*
+		*/
+		GetInfo: function(profileId, callback) {
+
+			Cambrian.Profile.List(function(err, profilesList) {
+				var profileInfo 	= null;
+
+				for(var i=0; i < profilesList.length; i++) {
+					if ( profilesList[i]["id"] == profileId) {
+						profileInfo = profilesList[i];
+						break;
+					}
+				}
+
+				if ( profileInfo == null ) {
+					err = "Profile does not exist";
+				}
+
+				if ( typeof callback == 'function') {
+					callback(err, profileInfo);
+				}
+			});
+		},
+
+		/**
 		* Returns the current profile
+		*
+		* @method GetCurrentProfile
 		*/
 		GetCurrentProfile: function() {
 			return Cambrian.Profile.currentProfile;
