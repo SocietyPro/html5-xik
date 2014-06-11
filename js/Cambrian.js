@@ -21,6 +21,14 @@ var Cambrian = {
 		*	Creates a new profile
 		* 	profileInfo {
 		* 		name:
+				id:
+				first_name:
+				last_name:
+				mobile_number:
+				email:
+				FGP_fingerprint:
+				bitcoin_address:
+				skype_id:
 		*	}
 		*	
 		*	@method Create

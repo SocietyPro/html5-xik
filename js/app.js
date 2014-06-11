@@ -18,10 +18,9 @@
     	}).
     	when('/error404',{
     		templateUrl: 'partials/error404.html'
+    	}).otherwise({
+    		redirectTo: '/login'
     	});
-    	/*.otherwise({
-    		redirectTo: '/error404'
-    	});*/
     }]);
 	/**
 	* Register controller for the page
@@ -167,6 +166,7 @@
 	app.controller('profileController', ['$scope',function($scope){
 		this.user = Cambrian.Profile.GetCurrentProfile();
 		this.tab = 0;
+		this.aboutTab = 0;
 
 		 this.isSet = function(checkTab) {
             return this.tab === checkTab;
@@ -174,6 +174,18 @@
 
           this.setTab = function(activeTab) {
             this.tab = activeTab;
+          };
+
+          this.isSetAboutTab = function(checkTab) {
+            return this.aboutTab === checkTab;
+          };
+
+          this.setAboutTab = function(activeTab) {
+            this.aboutTab = activeTab;
+          };
+
+          this.isFieldNull = function(field) {
+          	return field === undefined || field === null || field === "";
           };
 	}]);
 
