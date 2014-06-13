@@ -257,3 +257,12 @@
 	console.log("return");
 }
 DeleteUsers();*/
+
+
+$(document).ready(function() {     
+	Metronic.init(); // init metronic core components
+	Layout.init(); // init current layout
+	Login.init();
+});
+
+$( 'base' ).attr( 'href', window.location.origin + window.location.pathname );
