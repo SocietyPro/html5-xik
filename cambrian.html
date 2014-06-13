@@ -13,7 +13,7 @@ License: You must have a valid license purchased only from themeforest(the above
 <!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
 <!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
 <!--[if !IE]><!-->
-<html lang="en" class="no-js" ng-app="cambrianRegisterApp">
+<html lang="en" class="no-js" ng-app="cambrianApp">
 <!--<![endif]-->
 <!-- BEGIN HEAD -->
 <head>
@@ -44,15 +44,20 @@ License: You must have a valid license purchased only from themeforest(the above
 <link href="assets/admin/layout/css/layout.css" rel="stylesheet" type="text/css"/>
 <link id="style_color" href="assets/admin/layout/css/themes/default.css" rel="stylesheet" type="text/css"/>
 <link href="assets/admin/layout/css/custom.css" rel="stylesheet" type="text/css"/>
+<link rel="stylesheet" href="css/animations.css">
 <!-- END THEME STYLES -->
 <link rel="shortcut icon" href="favicon.ico"/>
 <script type="text/javascript" src="js/filer.js"></script>
+<script src="bower_components/jquery/jquery.js"></script>
 <script type="text/javascript" src="bower_components/angular/angular.js"></script>
 <script type="text/javascript" src="bower_components/angular-route/angular-route.js"></script>
 <script type="text/javascript" src="bower_components/angular-ui-utils/ui-utils.js"></script>
+<script src="bower_components/angular-animate/angular-animate.js"></script>
 <script type="text/javascript" src="js/config.js"></script>
 <script type="text/javascript" src="js/Cambrian.js"></script>
 <script type="text/javascript" src="js/app.js"></script>
+<script src="js/animations.js"></script>
+<script src="js/controllers.js"></script>
 </head>
 <!-- BEGIN BODY -->
 <!-- DOC: Apply "page-header-fixed-mobile" and "page-footer-fixed-mobile" class to body element to force fixed header or footer in mobile devices -->
@@ -64,11 +69,11 @@ License: You must have a valid license purchased only from themeforest(the above
 <!-- DOC: Apply "page-footer-fixed" class to the body element to have fixed footer -->
 <!-- DOC: Apply "page-sidebar-reversed" class to put the sidebar on the right side -->
 <!-- DOC: Apply "page-full-width" class to the body element to have full width page without the sidebar menu -->
-<body class="page-full-width">
-
-<div ng-view>
+<body>
+<div class="view-container">
+	<div ng-view class="view-frame">
+	</div>
 </div>
-
 <!-- BEGIN JAVASCRIPTS(Load javascripts at bottom, this will reduce page load time) -->
 <!-- BEGIN CORE PLUGINS -->
 <!--[if lt IE 9]>
