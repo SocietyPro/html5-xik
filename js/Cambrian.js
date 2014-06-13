@@ -172,6 +172,9 @@ var Cambrian = {
 				}
 
 				if ( typeof callback == 'function') {
+					if ( !profileInfo["profile_picture"] ) {
+						profileInfo["profile_picture"] = "img/ProfilePlaceholderSuit.png";
+					}
 					callback(err, profileInfo);
 				}
 			});
