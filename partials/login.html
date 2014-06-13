@@ -46,7 +46,7 @@
 			<div class="login-options">
 				<h4>Choose an account</h4>
 				<ul>
-					<li ng-repeat="profile in regC.profiles"><!-- repeat for each profile -->
+					<li ng-repeat="profile in regC.profiles" class="user-listing"><!-- repeat for each profile -->
 						<a href ng-click="regC.selectProfile(profile)">{{profile.name}}</a>
 					</li>
 				</ul>
@@ -62,40 +62,6 @@
 	</div>
 	<!-- END LOGIN -->
 
-
-
-
-
-	<div class="content" ng-show="regC.getPage() === 2">
-		
-
-		<!-- BEGIN PAGE HEADER-->
-		<div class="row">
-			<div class="col-md-12">
-				<!-- BEGIN PAGE TITLE & BREADCRUMB-->
-				<h3 class="page-title">
-					<h1 id="welcomeProfile">Welcome {{regC.user.name}} </h1>
-				</h3>
-				<ul class="page-breadcrumb breadcrumb">
-					<li>
-						<i class="fa fa-home"></i>
-						<a href="index.html">Home</a>
-						<i class="fa fa-angle-right"></i>
-					</li>
-					<li class="pull-right">
-						<div id="dashboard-report-range" class="dashboard-date-range tooltips" data-placement="top" data-original-title="Change dashboard date range">
-							<i class="fa fa-calendar"></i>
-							<span></span>
-							<i class="fa fa-angle-down"></i>
-						</div>
-					</li>
-				</ul>
-				<!-- END PAGE TITLE & BREADCRUMB-->
-			</div>
-		</div>
-		<!-- END PAGE HEADER-->
-
-	</div>
 	<!-- BEGIN COPYRIGHT -->
 	<div class="copyright">
 		 2014 &copy; Cambrian. 
