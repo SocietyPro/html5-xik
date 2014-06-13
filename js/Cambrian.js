@@ -29,6 +29,7 @@ var Cambrian = {
 		*		FGP_fingerprint:
 		*		bitcoin_address:
 		*		skype_id:
+		*		profile_picture: "image as URL, base64 encoded"
 		*	}
 		*	
 		*	@method Cambrian.Profile.Create
@@ -79,8 +80,8 @@ var Cambrian = {
 				filer.mkdir('profiles', false, function(dirEntry) {
 					filer.ls('/profiles', function(entries) {
 
-						var profiles = [],
-							filesCount = 0;
+						var profiles 	= [],
+							filesCount 	= 0;
 
 						for (var i = entries.length - 1; i >= 0; i--) {
 							if ( entries[i].isFile ) {
@@ -90,15 +91,25 @@ var Cambrian = {
 									
 									var reader = new FileReader();
 									reader.onload = function(evt) {
-										var textFile = evt.target;
-										var textContent = textFile.result;
-										var profile = JSON.parse(textContent);
-										profiles.push(profile);
 
-										if ( profiles.length == entries.length) {
-											// when every file has been processed
-											callback(null, profiles);
+										var textFile 		= evt.target,
+											textContent		= textFile.result,
+											profileInfo		= null;
+										
+										try {
+											profileInfo 		= JSON.parse(textContent);
+											profiles.push(profileInfo);
+
+											if ( profiles.length == entries.length) {
+												// when every file has been processed
+												callback(null, profiles);
+											}
+
+										} catch(err) {
+											callback(err, profiles);
 										}
+										
+
 									}
 									reader.readAsText(file);
 								});
@@ -173,7 +184,38 @@ var Cambrian = {
 		*/
 		GetCurrentProfile: function() {
 			return Cambrian.Profile.currentProfile;
+		},
+
+		/**
+		* Updates a previously created profile
+		*
+		* @method Cambrian.Profile.Save
+		*/
+		Save: function(newProfile, callback) {
+			var profileId 	= newProfile["id"],
+				filer 		= new Filer();
+
+			if ( !(typeof profileId == "number") ) return;
+
+			Cambrian.Profile.GetInfo(profileId, function(err, profile) {
+				filer.init({persistent: true, size: 2014 * 1024}, function(fs) {
+					// save
+					var profileStr = JSON.stringify(newProfile);
+						
+					filer.write("/profiles/profile" + newProfile["id"], 
+						{data: profileStr, type: 'text/plain'},
+						function() {
+							if ( typeof callback == 'function') {
+								callback(err, newProfile);
+								toastr.success("Profile picture saved");
+							}
+						}
+					);
+				});
+			});
 		}
+
+
 	}
 };
 

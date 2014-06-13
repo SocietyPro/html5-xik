@@ -146,19 +146,20 @@ var cambrianControllers = angular.module('cambrianControllers',['ui.utils']);
 	}]);
 
 	cambrianControllers.controller('profileController', ['$scope','$routeParams',function($scope,$routeParams){
-		var self = this;
-		this.userId = $routeParams.userId;
+		var self 		= this;
+		this.userId 	= $routeParams.userId;
+		this.user 		= null;
+
 		Cambrian.Profile.GetInfo(this.userId, function(err,profile){
 			if ( !err) {
 				$scope.$apply(function() {
 					self.user = profile; 
 				});		
-			} else {
-				// show error msg	
 			}
 		});
-		this.tab = 0;
-		this.aboutTab = 0;
+		
+		this.tab 		= 0;
+		this.aboutTab 	= 0;
 
 		this.isSet = function(checkTab) {
 			return this.tab === checkTab;
@@ -179,4 +180,36 @@ var cambrianControllers = angular.module('cambrianControllers',['ui.utils']);
 		this.isFieldNull = function(field) {
 			return field === undefined || field === null || field === "";
 		};
+
+		this.changeProfilePic = function(evt) {
+			var inputObj 	= evt.target["profilePicture"],
+				file 		= null,
+				reader 		= new FileReader();
+			
+
+			if ( inputObj.files.length == 0) {
+				console.log("No image selected");
+				return;
+			}
+			file = inputObj.files[0];
+			
+
+			if ( !file.type.match('image.*')) {
+				console.log("File is not an image "+ file.type);
+				return;
+			}
+
+			reader.onload = function(e) {
+				Cambrian.Profile.GetInfo(self.userId, function(err, profile) {
+					profile["profile_picture"] = e.target.result;
+					Cambrian.Profile.Save(profile, function() {
+						$scope.$apply(function() {
+							self.user = profile;
+						});		
+					});
+				});
+			};
+
+			reader.readAsDataURL(file);
+		}
 	}]);

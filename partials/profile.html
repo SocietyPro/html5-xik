@@ -144,7 +144,7 @@
 				<!-- BEGIN USER LOGIN DROPDOWN -->
 				<li class="dropdown dropdown-user">
 					<a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
-					<img alt="" class="img-circle" src="assets/admin/layout/img/avatar3_small.jpg"/>
+					<img class="img-circle profile-avatar" ng-src="{{profile.user.profile_picture}}" class="img-responsive" alt="" />
 					<span class="username">
 					Bob </span>
 					<i class="fa fa-angle-down"></i>
@@ -199,10 +199,12 @@
 
 
 <!-- BEGIN CONTAINER -->
-<div class="page-container">
+<div class="page-container profile">
 	<!-- BEGIN CONTENT -->
 	<div class="page-content-wrapper">
 		<div class="page-content">
+
+
 			<!-- BEGIN SAMPLE PORTLET CONFIGURATION MODAL FORM-->
 			<div class="modal fade" id="portlet-config" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 				<div class="modal-dialog">
@@ -230,42 +232,28 @@
 			<!-- BEGIN PAGE HEADER-->
 			<div class="row">
 				<div class="col-md-12">
-					<!-- BEGIN PAGE TITLE & BREADCRUMB-->
-					<h3 class="page-title">
-					User Profile <small>user profile sample</small>
-					</h3>
-					<ul class="page-breadcrumb breadcrumb">
-						<li class="btn-group">
-							<button type="button" class="btn blue dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="1000" data-close-others="true">
-							<span>Actions</span><i class="fa fa-angle-down"></i>
-							</button>
-							<ul class="dropdown-menu pull-right" role="menu">
-								<li>
-									<a href="#">Action</a>
-								</li>
-								<li>
-									<a href="#">Another action</a>
-								</li>
-								<li>
-									<a href="#">Something else here</a>
-								</li>
-								<li class="divider">
-								</li>
-								<li>
-									<a href="#">Separated link</a>
-								</li>
-							</ul>
-						</li>
-						<li>
-							<i class="fa fa-home"></i>
-							<a href="index.html">Home</a>
-							<i class="fa fa-angle-right"></i>
-						</li>
-					</ul>
-					<!-- END PAGE TITLE & BREADCRUMB-->
+					<img class="cover-photo" src="img/cover-photo.jpg"/>
 				</div>
 			</div>
 			<!-- END PAGE HEADER-->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 			<!-- BEGIN PAGE CONTENT-->
 			<div class="row profile">
 				<div class="col-md-12">
@@ -287,7 +275,7 @@
 									<div class="col-md-3">
 										<ul class="list-unstyled profile-nav">
 											<li>
-												<img src="assets/admin/pages/media/profile/profile-img.png" class="img-responsive" alt=""/>
+												<img ng-src="{{profile.user.profile_picture}}" class="img-responsive" alt="" />
 												<a href="#" class="profile-edit">
 												edit </a>
 											</li>
@@ -311,6 +299,7 @@
 											</li>
 										</ul>
 									</div>
+
 									<div class="col-md-9">
 										<div class="row">
 											<div class="col-md-8 profile-info">
@@ -455,41 +444,32 @@
 												</form>
 											</div>
 											<div class="tab-pane" ng-class="{active: profile.isSetAboutTab(1) }" ng-show="profile.isSetAboutTab(1)">
-												<p>
-													 Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod.
-												</p>
-												<form action="#" role="form">
+												<p>Please select an image from your computer for your profile</p>
+
+												<form ng-submit="profile.changeProfilePic($event)">
 													<div class="form-group">
 														<div class="fileinput fileinput-new" data-provides="fileinput">
 															<div class="fileinput-new thumbnail" style="width: 200px; height: 150px;">
-																<img src="http://www.placehold.it/200x150/EFEFEF/AAAAAA&amp;text=no+image" alt=""/>
+																<img ng-src="{{profile.user.profile_picture}}" alt=""/>
 															</div>
 															<div class="fileinput-preview fileinput-exists thumbnail" style="max-width: 200px; max-height: 150px;">
 															</div>
 															<div>
 																<span class="btn default btn-file">
-																<span class="fileinput-new">
-																Select image </span>
-																<span class="fileinput-exists">
-																Change </span>
-																<input type="file" name="...">
+																	<span class="fileinput-new">Select image</span>
+																	<span class="fileinput-exists">Change</span>
+																	<input type="file" name="profilePicture">
 																</span>
-																<a href="#" class="btn default fileinput-exists" data-dismiss="fileinput">
-																Remove </a>
+																
+																<a href="#" class="btn default fileinput-exists" data-dismiss="fileinput">Remove</a>
 															</div>
 														</div>
-														<div class="clearfix margin-top-10">
-															<span class="label label-danger">
-															NOTE! </span>
-															<span>
-															Attached image thumbnail is supported in Latest Firefox, Chrome, Opera, Safari and Internet Explorer 10 only </span>
-														</div>
+														
 													</div>
+
 													<div class="margin-top-10">
-														<a href="#" class="btn green">
-														Submit </a>
-														<a href="#" class="btn default">
-														Cancel </a>
+														<button class="btn green">Submit</button>
+														<a href="#" class="btn default">Cancel</a>
 													</div>
 												</form>
 											</div>

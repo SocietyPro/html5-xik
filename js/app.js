@@ -26,6 +26,23 @@
 		
     }]);
 
+    if ( typeof toastr != 'undefined' ) {
+	    toastr.options = {
+		  "closeButton": true,
+		  "debug": false,
+		  "positionClass": "toast-top-right",
+		  "onclick": null,
+		  "showDuration": "200",
+		  "hideDuration": "200",
+		  "timeOut": "1000",
+		  "extendedTimeOut": "200",
+		  "showEasing": "swing",
+		  "hideEasing": "linear",
+		  "showMethod": "fadeIn",
+		  "hideMethod": "fadeOut"
+		}
+	}
+
 }) ();
 
 /*function DeleteUsers() {
