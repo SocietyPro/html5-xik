@@ -408,56 +408,14 @@
 												<a href ng-click="profile.setAboutTab(1)">
 												<i class="fa fa-picture-o"></i> Change Avatar </a>
 											</li>
-											<li ng-class="{active:profile.isSetAboutTab(2)}">
-												<a href ng-click="profile.setAboutTab(2)">
-												<i class="fa fa-lock"></i> Change Password </a>
-											</li>
 										</ul>
 									</div>
 										<div class="col-md-9">
 										<div class="tab-content">
 											<div class="tab-pane" ng-class="{active: profile.isSetAboutTab(0) }" ng-show="profile.isSetAboutTab(0)">
-												<form role="form" action="#">
-													<div class="form-group" ng-hide="profile.isFieldNull(profile.user.first_name)">
-														<label class="control-label">First Name</label>
-														<input id="txtFirstName" type="text" placeholder="{{profile.user.first_name}}" class="form-control" disabled/>
-													</div>
-													<div class="form-group" ng-hide="profile.isFieldNull(profile.user.last_name)">
-														<label class="control-label">Last Name</label>
-														<input id="txtLastName" type="text" placeholder="{{profile.user.last_name}}" class="form-control" disabled/>
-													</div>
-													<div class="form-group" ng-hide="profile.isFieldNull(profile.user.mobile_number)">
-														<label class="control-label">Mobile Number</label>
-														<input id="txtMobileNumber" type="text" placeholder="{{profile.user.mobile_number}}" class="form-control" disabled/>
-													</div>
-													<div class="form-group" ng-hide="profile.isFieldNull(profile.user.email)">
-														<label id="txtEmail" class="control-label">Email address</label>
-														<input type="text" placeholder="{{profile.user.email}}" class="form-control" disabled/>
-													</div> 
-													<div class="form-group" ng-hide="profile.isFieldNull(profile.user.FGP_fingerprint)">
-														<label class="control-label">PGP Key Fingerprint</label>
-														<input id="txtFGP" type="text" placeholder="{{profile.user.FGP_fingerprint}}" class="form-control" disabled/>
-													</div>
-													<div class="form-group" ng-hide="profile.isFieldNull(profile.user.bitcoin_address)">
-														<label class="control-label">Bitcoin Address</label>
-														<input id="txtBitcoinAddress" type="text" placeholder="{{profile.user.bitcoin_address}}" class="form-control"/ disabled>
-													</div>
-													<div class="form-group" ng-hide="profile.isFieldNull(profile.user.skype_id)">
-														<label class="control-label">Skype ID</label>
-														<input id="txtSkypeId" type="text" placeholder="{{profile.user.skype_id}}" class="form-control" disabled/>
-													</div>
-													<!--<div class="margiv-top-10">
-														<a href="#" class="btn green">
-														Save Changes </a>
-														<a href="#" class="btn default">
-														Cancel </a>
-													</div>-->
-												</form>
+												<about-profile></about-profile>
 											</div>
 											<div class="tab-pane" ng-class="{active: profile.isSetAboutTab(1) }" ng-show="profile.isSetAboutTab(1)">
-												<p>
-													 Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod.
-												</p>
 												<form action="#" role="form">
 													<div class="form-group">
 														<div class="fileinput fileinput-new" data-provides="fileinput">
@@ -474,48 +432,17 @@
 																Change </span>
 																<input type="file" name="...">
 																</span>
-																<a href="#" class="btn default fileinput-exists" data-dismiss="fileinput">
-																Remove </a>
 															</div>
 														</div>
-														<div class="clearfix margin-top-10">
-															<span class="label label-danger">
-															NOTE! </span>
-															<span>
-															Attached image thumbnail is supported in Latest Firefox, Chrome, Opera, Safari and Internet Explorer 10 only </span>
-														</div>
 													</div>
 													<div class="margin-top-10">
-														<a href="#" class="btn green">
+														<a href class="btn green">
 														Submit </a>
-														<a href="#" class="btn default">
+														<a href class="btn default">
 														Cancel </a>
 													</div>
 												</form>
 											</div>
-											<div class="tab-pane" ng-class="{active: profile.isSetAboutTab(2) }" ng-show="profile.isSetAboutTab(2)">
-												<form action="#">
-													<div class="form-group">
-														<label class="control-label">Current Password</label>
-														<input type="password" class="form-control"/>
-													</div>
-													<div class="form-group">
-														<label class="control-label">New Password</label>
-														<input type="password" class="form-control"/>
-													</div>
-													<div class="form-group">
-														<label class="control-label">Re-type New Password</label>
-														<input type="password" class="form-control"/>
-													</div>
-													<div class="margin-top-10">
-														<a href="#" class="btn green">
-														Change Password </a>
-														<a href="#" class="btn default">
-														Cancel </a>
-													</div>
-												</form>
-											</div>
-											
 
 										</div>
 									</div>

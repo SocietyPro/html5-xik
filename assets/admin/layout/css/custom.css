@@ -1,5 +1,6 @@
 /* here you can put your own css to customize and override the theme */
-.form-control[disabled], .form-control[readonly], fieldset[disabled] .form-control {
+.form-control[disabled] {
   cursor: default;
-  background-color: #eeeeee;
+  background-color: #ffffff;
+  border-style:none;
 }

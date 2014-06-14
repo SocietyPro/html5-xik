@@ -24,11 +24,13 @@ var Cambrian = {
 		*		id:
 		*		first_name:
 		*		last_name:
-		*		mobile_number:
-		*		email:
-		*		FGP_fingerprint:
-		*		bitcoin_address:
-		*		skype_id:
+		*		mobile_number:[]
+		*		email:[]
+		*		FGP_fingerprint:[]
+		*		bitcoin_address:[]
+		*		skype_id:[]
+		*		headshot_photo:
+		*		panoramic_photo:
 		*	}
 		*	
 		*	@method Cambrian.Profile.Create

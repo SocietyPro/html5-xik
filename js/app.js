@@ -2,7 +2,7 @@
 
 /* App Module */
 (function() {
-    var app = angular.module('cambrianApp',['ngRoute','cambrianAnimations','cambrianControllers']);
+    var app = angular.module('cambrianApp',['ngRoute','cambrianAnimations','cambrianControllers','cambrianDirectives']);
 
     app.config(['$routeProvider',function($routeProvider){
     	$routeProvider
@@ -40,12 +40,3 @@
 	console.log("return");
 }
 DeleteUsers();*/
-
-
-$(document).ready(function() {     
-	Metronic.init(); // init metronic core components
-	Layout.init(); // init current layout
-	Login.init();
-});
-
-$( 'base' ).attr( 'href', window.location.origin + window.location.pathname );

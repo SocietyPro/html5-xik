@@ -159,6 +159,7 @@ var cambrianControllers = angular.module('cambrianControllers',['ui.utils']);
 		});
 		this.tab = 0;
 		this.aboutTab = 0;
+		
 
 		this.isSet = function(checkTab) {
 			return this.tab === checkTab;
@@ -176,7 +177,41 @@ var cambrianControllers = angular.module('cambrianControllers',['ui.utils']);
 			this.aboutTab = activeTab;
 		};
 
+		
+	}]);
+
+	cambrianControllers.controller('editInfoController',['$scope','$routeParams',function($scope,$routeParams){
+		var self = this;
+		this.userId = $routeParams.userId;
+		Cambrian.Profile.GetInfo(this.userId, function(err,profile){
+			if ( !err) {
+				$scope.$apply(function() {
+					self.user = profile;
+				});		
+			} else {
+				// show error msg	
+			}
+		});
+		this.edit = false;
+		this.success= false;
+		this.failed = false;
+		
 		this.isFieldNull = function(field) {
 			return field === undefined || field === null || field === "";
+		};
+
+		this.setEdit = function(value) {
+			this.edit = value;
+		};
+
+		this.isEdit = function() {
+			return this.edit
+		};
+
+		this.addFields = function() {
+			console.log("addFields");
+			console.log(this.newInfo.skype_id);
+			this.edit = false;
+			this.success = true;
 		};
 	}]);
