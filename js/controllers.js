@@ -1,4 +1,4 @@
-'use strict'
+//'use strict'
 
 /* Controllers */
 
@@ -198,32 +198,6 @@ var cambrianControllers = angular.module('cambrianControllers',['ui.utils']);
 			this.aboutTab = activeTab;
 		};
 
-		
-	}]);
-
-	cambrianControllers.controller('editInfoController',['$scope','$routeParams',function($scope,$routeParams){
-	
-		var self = this;
-		this.userId = $routeParams.userId;
-		Cambrian.Profile.GetInfo(this.userId, function(err,profile){
-			if ( !err) {
-				$scope.$apply(function() {
-					self.user = profile;
-				});		
-			} else {
-				// show error msg	
-			}
-		});
-		
-		this.edit 		= false;
-		this.success	= false;
-		this.failed 	= false;
-		
-		this.isFieldNull = function(field) {
-			return field === undefined || field === null || field === "";
-		};
-
-
 		/**
 		* Updates the profile picture, property profile_picture
 		*
@@ -232,6 +206,8 @@ var cambrianControllers = angular.module('cambrianControllers',['ui.utils']);
  		* @instance
 		*/ 
 		this.changeProfilePic = function(evt) {
+			console.log("changeProfilePic");
+		
 			var inputObj 	= evt.target["profilePicture"],
 				file 		= null,
 				reader 		= new FileReader();
@@ -262,6 +238,32 @@ var cambrianControllers = angular.module('cambrianControllers',['ui.utils']);
 
 			reader.readAsDataURL(file);
 		}
+		
+	}]);
+
+	cambrianControllers.controller('editInfoController',['$scope','$routeParams',function($scope,$routeParams){
+	
+		var self = this;
+		this.userId = $routeParams.userId;
+		Cambrian.Profile.GetInfo(this.userId, function(err,profile){
+			if ( !err) {
+				$scope.$apply(function() {
+					self.user = profile;
+				});		
+			} else {
+				// show error msg	
+			}
+		});
+		
+		this.edit 		= false;
+		this.success	= false;
+		this.failed 	= false;
+		
+		this.isFieldNull = function(field) {
+			return field === undefined || field === null || field === "";
+		};
+
+
 
 		this.setEdit = function(value) {
 			this.edit = value;
