@@ -29,7 +29,8 @@ var Cambrian = {
 		*		FGP_fingerprint:
 		*		bitcoin_address:
 		*		skype_id:
-		*		profile_picture: "image as URL, base64 encoded"
+		*		headshot_photo:
+		*		panoramic_photo:
 		*	}
 		*	
 		*	@method Cambrian.Profile.Create
