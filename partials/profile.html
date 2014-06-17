@@ -1,4 +1,4 @@
-<div class="page-header-fixed page-full-width">
+<div class="page-header-fixed page-full-width page-boxed">
 
 <!-- BEGIN HEADER -->
 <div class="page-header navbar navbar-fixed-top">
@@ -38,20 +38,37 @@
 			<!-- BEGIN PAGE HEADER-->
 			<div class="row">
 				<div class="col-md-12">
-					<div class="cover-photo">
+					<!--<div class="cover-photo">
+						<img ng-src="{{profile.user.profile_picture}}"/>
 						<img  src="img/cover-photo.jpg"/>
+					</div>-->
+					<div id="placeholder">
+   						 <img id="target3" class="crop_me" alt="" src="img/cover-photo.jpg" />
+   						 <div id="profile-thumb">
+        					<div id="profile-mask">
+            					<img id="profiler" ng-src="{{profile.user.profile_picture}}" width="160px" height="160px" />
+        					</div>
+   						 </div>
+    					<div id="name-holder">
+        					<h2 class="_6_f" style="display:block;">
+							<a id="p_name" class="_8_2" href>{{profile.user.name}}
+							</a>
+							</h2> 
+    					</div>
 					</div>
 				</div>
 			</div>
 			<!-- END PAGE HEADER-->
 
 
-
+			</br>
+			</br>
+			</br>
 			<!-- BEGIN PAGE CONTENT-->
 			<div class="row profile">
 				<div class="col-md-12">
 					<!--BEGIN TABS-->
-					<div class="tabbable tabbable-custom tabbable-full-width">
+					<div class="tabbable tabbable-custom tabbable-full-width" style="margin-left:195px;margin-right:195px;">
 						
 						<ul class="nav nav-tabs">
 							<li ng-class="{ active: profile.isSet(0) }">
@@ -83,36 +100,11 @@
 							<div class="tab-pane" ng-class="{active: profile.isSet(1) }" ng-show="profile.isSet(1)" >
 								<div class="row profile-account">
 									<div class="col-md-3">
-										<img ng-src="{{profile.user.profile_picture}}" class="img-responsive" alt="" />
 									</div>
 									<div class="col-md-9">
+										
 										<about-profile></about-profile>
 												
-										<p>Select an image from your computer for your profile</p>
-										<form ng-submit="profile.changeProfilePic($event)">
-											<div class="form-group">
-												<div class="fileinput fileinput-new" data-provides="fileinput">
-													<div class="fileinput-new thumbnail" style="width: 200px; height: 150px;">
-														<img ng-src="{{profile.user.profile_picture}}" alt=""/>
-													</div>
-													<div class="fileinput-preview fileinput-exists thumbnail" style="max-width: 200px; max-height: 150px;">
-													</div>
-													<div>
-														<span class="btn default btn-file">
-															<span class="fileinput-new">Select image</span>
-															<span class="fileinput-exists">Change</span>
-															<input type="file" name="profilePicture">
-														</span>
-														<a href="#" class="btn default fileinput-exists" data-dismiss="fileinput">Remove</a>
-													</div>
-												</div>
-											</div>
-
-											<div class="margin-top-10">
-												<button type="submit" class="btn green">Submit</button>
-												<button type="button" class="btn default">Cancel</button>
-											</div>
-										</form>
 									</div>
 									<!--end col-md-9-->
 								</div>
@@ -136,7 +128,7 @@
 <!-- BEGIN FOOTER -->
 <div class="page-footer">
 	<div class="page-footer-inner">
-		 2014 &copy; Cambrian.
+		 2014 Cambrian
 	</div>
 	<div class="page-footer-tools">
 		<span class="go-top">
@@ -146,3 +138,4 @@
 </div>
 </div>
 <!-- END FOOTER -->
+	

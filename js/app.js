@@ -15,14 +15,7 @@
 				templateUrl: 'partials/profile.html',
 				controller: 'profileController',
 				controllerAs: 'profile'
-			})
-			.when('/error404',{
-				templateUrl: 'partials/error404.html'
-			})
-			.otherwise({
-				redirectTo: '/login'
 			});
-			
 		
     }]);
 
