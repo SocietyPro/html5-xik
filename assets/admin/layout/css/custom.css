@@ -20,3 +20,61 @@
 .cover-photo img {
 	width: 100%;
 }
+#placeholder {
+display: block;
+height: 315px;
+width: 851px;
+margin: 0 auto;
+position: relative;
+}
+img {
+margin: auto;
+display: block;
+}
+#profile-thumb {
+left: 15px;
+margin-top: 0;
+bottom: -20px;
+padding: 1px;
+position: absolute;
+display: block;
+background: rgba(0, 0, 0, .3);
+-webkit-border-radius: 3px;
+border-radius: 3px;
+}
+#profile-mask {
+background-color: #fff;
+border: 4px solid #fff;
+-webkit-border-radius: 2px;
+border-radius: 2px;
+height: 160px;
+width: 160px;
+}
+#name-holder {
+bottom: 12px;
+left: 201px;
+position: absolute;
+}
+._6_f {
+max-width: 275px;
+display: inline-block;
+}
+._8_2 {
+font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+font-size: 24px;
+line-height: 30px;
+font-weight: bold;
+display: inline-block;
+padding-right: 30px;
+}
+._8_2, .alternate {
+color: #FFF;
+text-rendering: optimizelegibility;
+text-shadow: 0 0 3px rgba(0,0,0,0.8);
+}
+.alternate {
+font-size: 20px;
+font-weight: normal;
+white-space: nowrap;
+color: #fff;
+}
