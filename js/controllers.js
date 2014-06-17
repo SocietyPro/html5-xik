@@ -228,20 +228,29 @@ var cambrianControllers = angular.module('cambrianControllers',['ui.utils']);
 				}
 			}
 		
-			var inputObj     = evt.target["profilePicture"];
-			readProfilePic(inputObj, function(data) {
-				console.log("profilePic: " + ((data)?data.substr(0, 15):"(null)") );
-				if ( data ) {
-					self.user["profile_picture"] = data;
-				}
+			var inputProfilePic     = evt.target["profilePicture"];
+			var inputPanoramicPic   = evt.target["panoramicPhoto"];
+			
+			readProfilePic(inputProfilePic, function(dataProfilePic) {
+				//console.log("profilePic: " + ((data)?data.substr(0, 15):"(null)") );
+				readProfilePic(inputPanoramicPic, function(dataPanoramicPic) {
 				
-				Cambrian.Profile.Save(self.user, function(err, profile) {
-					if ( !err) {
-						$scope.$apply(function() {
-							self.user 		= self.newInfo;
-							self.edition 	= false;
-						});
+					if ( dataProfilePic ) {
+						self.user["profile_picture"] = dataProfilePic;
 					}
+					if ( dataPanoramicPic) {
+						self.user["panoramic_photo"] = dataPanoramicPic;
+					}
+					
+					Cambrian.Profile.Save(self.user, function(err, profile) {
+						if ( !err) {
+							$scope.$apply(function() {
+								self.user 		= self.newInfo;
+								self.edition 	= false;
+							});
+						}
+					});
+					
 				});
 				
 			});
