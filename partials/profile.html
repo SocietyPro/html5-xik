@@ -12,11 +12,6 @@
 		</div>
 		<!-- END LOGO -->
 
-		<!-- BEGIN RESPONSIVE MENU TOGGLER -->
-		<div class="menu-toggler responsive-toggler" data-toggle="collapse" data-target=".navbar-collapse">
-		</div>
-		<!-- END RESPONSIVE MENU TOGGLER -->
-
 	</div>
 	<!-- END HEADER INNER -->
 </div>
@@ -34,14 +29,9 @@
 	<div class="page-content-wrapper">
 		<div class="page-content">
 
-			
 			<!-- BEGIN PAGE HEADER-->
 			<div class="row">
 				<div class="col-md-12">
-					<!--<div class="cover-photo">
-						<img ng-src="{{profile.user.profile_picture}}"/>
-						<img  src="img/cover-photo.jpg"/>
-					</div>-->
 					<div id="placeholder">
    						 <img id="target3" class="crop_me" alt="" src="img/cover-photo.jpg" />
    						 <div id="profile-thumb">
@@ -51,8 +41,7 @@
    						 </div>
     					<div id="name-holder">
         					<h2 class="_6_f" style="display:block;">
-							<a id="p_name" class="_8_2" href>{{profile.user.name}}
-							</a>
+								<a id="p_name" class="_8_2" href>{{profile.user.name}}</a>
 							</h2> 
     					</div>
 					</div>
@@ -68,7 +57,7 @@
 			<div class="row profile">
 				<div class="col-md-12">
 					<!--BEGIN TABS-->
-					<div class="tabbable tabbable-custom tabbable-full-width" style="margin-left:195px;margin-right:195px;">
+					<div class="tabbable tabbable-custom tabbable-full-width">
 						
 						<ul class="nav nav-tabs">
 							<li ng-class="{ active: profile.isSet(0) }">
@@ -98,16 +87,98 @@
 
 							<!--tab_1_2-->
 							<div class="tab-pane" ng-class="{active: profile.isSet(1) }" ng-show="profile.isSet(1)" >
-								<div class="row profile-account">
-									<div class="col-md-3">
-									</div>
-									<div class="col-md-9">
-										
-										<about-profile></about-profile>
-												
-									</div>
-									<!--end col-md-9-->
+							
+								<div class="pull-right">
+									<a href ng-show="!about.isEdit()" ng-click="about.setEdit(true)" class="btn green">Edit Info </a>
+									<button type="submit" ng-show="about.isEdit()" class="btn green">Save Changes </button>
+									<a href ng-show="about.isEdit()" ng-click="about.setEdit(false)" class="btn default">Cancel </a>
 								</div>
+								
+								<div>
+									<div ng-show="profile.user.first_name">
+										<label class="control-label">First Name</label>
+										<span>{{profile.user.first_name}}</span>
+									</div>
+									<div ng-show="profile.user.last_name">
+										<label class="control-label">Last Name</label>
+										<span>{{profile.user.last_name}}</span>
+									</div>
+									<div ng-show="profile.user.mobile_number">
+										<label class="control-label">Mobile number</label>
+										<span>{{profile.user.mobile_number}}</span>
+									</div>
+									<div ng-show="profile.user.email">
+										<label class="control-label">Email</label>
+										<span>{{profile.user.email}}</span>
+									</div>
+									<div ng-show="profile.user.FGP_fingerprint">
+										<label class="control-label">PGP Fingerprint</label>
+										<span>{{profile.user.FGP_fingerprint}}</span>
+									</div>
+									<div ng-show="profile.user.bitcoin_address">
+										<label class="control-label">Bitcoin Address</label>
+										<span>{{profile.user.bitcoin_address}}</span>
+									</div>
+									<div ng-show="profile.user.skype_id">
+										<label class="control-label">Skype ID</label>
+										<span>{{profile.user.skype_id}}</span>
+									</div>
+								</div>
+									
+								<div style="border:1px solid #0F0"></div>
+							
+								<form ng-submit="about.addFields($event)" >
+									
+									<div class="form-group" style="display:none">
+										<p>Select an image from your computer for your profile</p>
+										<div class="fileinput fileinput-new" data-provides="fileinput">
+											<div class="fileinput-new thumbnail" style="width: 200px; height: 150px;">
+												<img ng-src="{{profile.user.profile_picture}}" alt=""/>
+											</div>
+											<div class="fileinput-preview fileinput-exists thumbnail" style="max-width: 200px; max-height: 150px;">
+											</div>
+											<div>
+												<span class="btn default btn-file">
+													<span class="fileinput-new">Select image</span>
+													<span class="fileinput-exists">Change</span>
+													<input type="file" name="profilePicture">
+												</span>
+												<a href="#" class="btn default fileinput-exists" data-dismiss="fileinput">Remove</a>
+											</div>
+										</div>
+									</div>
+									
+									<div class="form-group">
+										<label class="control-label">First Name</label>
+										<input ng-model="about.newInfo.first_name" id="txtFirstName" type="text" placeholder="First name" class="form-control"/>
+									</div>
+									<div class="form-group">
+										<label class="control-label">Last Name</label>
+										<input ng-model="about.newInfo.last_name" id="txtLastName" type="text" placeholder="Last name" class="form-control"/>
+									</div>
+									<div class="form-group">
+										<label class="control-label">Mobile Number</label>
+										<input ng-model="about.newInfo.mobile_number" id="txtMobileNumber" type="text" placeholder="Mobile number" class="form-control"/>
+									</div>
+									<div class="form-group">
+										<label class="control-label">Email address</label>
+										<input ng-model="about.newInfo.email" id="txtEmail" type="email" placeholder="user@example.com" class="form-control" />
+									</div>
+									<div class="form-group">
+										<label class="control-label">FGP Key Fingerprint</label>
+										<input ng-model="about.newInfo.FGP_fingerprint" id="txtFGP" type="text" placeholder="(pgp fingergprint)" class="form-control"/>
+									</div>
+									<div class="form-group">
+										<label class="control-label">Bitcoin Address</label>
+										<input ng-model="about.newInfo.bitcoin_address" id="txtBitcoinAddress" type="text" placeholder="(bitcoin address)" class="form-control"/>
+									</div>
+									<div class="form-group">
+										<label class="control-label">Skype ID</label>
+										 <input ng-model="about.newInfo.skype_id" id="txtSkypeId" type="text" placeholder="{{about.user.skype_id}}" class="form-control"/>
+									</div>
+									
+									
+								</form>
 							</div>
 							<!--end tab-pane-->
 							
@@ -125,6 +196,7 @@
 	<!-- END CONTENT -->
 </div>
 <!-- END CONTAINER -->
+
 <!-- BEGIN FOOTER -->
 <div class="page-footer">
 	<div class="page-footer-inner">
@@ -136,6 +208,8 @@
 		</span>
 	</div>
 </div>
-</div>
 <!-- END FOOTER -->
+
+
+</div>
 	

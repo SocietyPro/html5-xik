@@ -170,6 +170,7 @@ var cambrianControllers = angular.module('cambrianControllers',['ui.utils']);
 		var self 		= this;
 		this.userId 	= $routeParams.userId;
 		this.user 		= null;
+		this.edition	= false;
 
 		Cambrian.Profile.GetInfo(this.userId, function(err,profile){
 			if ( !err) {
@@ -182,69 +183,35 @@ var cambrianControllers = angular.module('cambrianControllers',['ui.utils']);
 		this.tab 		= 0;
 		this.aboutTab 	= 0;
 
-		this.isSet = function(checkTab) {
-			return this.tab === checkTab;
-		};
+		this.isSet 		= function(checkTab) 	{ return this.tab === checkTab; };
+		this.setTab 	= function(activeTab) 	{ this.tab = activeTab; 		};
+		this.isEdition	= function()			{ return this.edition; 			}
+		this.setEdition = function(edition)		{ this.isEdtion = edition;		};
 
-		this.setTab = function(activeTab) {
-			this.tab = activeTab;
-		};
-
-		this.isSetAboutTab = function(checkTab) {
-			return this.aboutTab === checkTab;
-		};
-
-		this.setAboutTab = function(activeTab) {
-			this.aboutTab = activeTab;
-		};
-
-		/**
-		* Updates the profile picture, property profile_picture
-		*
-		* @method changeProfilePic
-		* @memberof profileController
- 		* @instance
-		*/ 
-		this.changeProfilePic = function(evt) {
-			console.log("changeProfilePic");
-		
-			var inputObj 	= evt.target["profilePicture"],
-				file 		= null,
-				reader 		= new FileReader();
-			
-
-			if ( inputObj.files.length == 0) {
-				console.log("No image selected");
-				return;
-			}
-			file = inputObj.files[0];
-			
-
-			if ( !file.type.match('image.*')) {
-				console.log("File is not an image "+ file.type);
-				return;
-			}
-
-			reader.onload = function(e) {
-				Cambrian.Profile.GetInfo(self.userId, function(err, profile) {
-					profile["profile_picture"] = e.target.result;
-					Cambrian.Profile.Save(profile, function() {
-						$scope.$apply(function() {
-							self.user = profile;
-						});		
-					});
-				});
-			};
-
-			reader.readAsDataURL(file);
-		}
-		
 	}]);
 
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	cambrianControllers.controller('editInfoController',['$scope','$routeParams',function($scope,$routeParams){
 	
 		var self = this;
-		this.userId = $routeParams.userId;
+		
+		this.user		= null;
+		this.edit 		= false;
+		this.success	= false;
+		this.failed 	= false;
+		this.userId 	= $routeParams.userId;
+		this.newInfo	= null;
+		
 		Cambrian.Profile.GetInfo(this.userId, function(err,profile){
 			if ( !err) {
 				$scope.$apply(function() {
@@ -255,15 +222,42 @@ var cambrianControllers = angular.module('cambrianControllers',['ui.utils']);
 			}
 		});
 		
-		this.edit 		= false;
-		this.success	= false;
-		this.failed 	= false;
+		/**
+		* Updates the profile picture, property profile_picture
+		*
+		* @method changeProfilePic
+		* @memberof profileController
+ 		* @instance
+		*/ 
+		var readProfilePic = function(inputObj, callback) {
+			console.log("changeProfilePic");
+		
+			var file 		= null,
+				reader 		= new FileReader();
+			
+			if ( inputObj.files.length == 0) {
+				console.log("No image selected");
+				callback(false);
+				return;
+			}
+			file = inputObj.files[0];
+			
+			if ( !file.type.match('image.*')) {
+				console.log("File is not an image "+ file.type);
+				callback(false);
+				return;
+			}
+
+			reader.onload = function(e) {
+				callback(e.target.result);
+			};
+
+			reader.readAsDataURL(file);
+		}
 		
 		this.isFieldNull = function(field) {
 			return field === undefined || field === null || field === "";
 		};
-
-
 
 		this.setEdit = function(value) {
 			this.edit = value;
@@ -273,15 +267,35 @@ var cambrianControllers = angular.module('cambrianControllers',['ui.utils']);
 			return this.edit
 		};
 
-		this.addFields = function() {
+		this.addFields = function(evt) {
 			console.log("addFields");
-			Cambrian.Profile.Save(this.newInfo, function() {
-				$scope.$apply(function() {
-					self.user = this.newInfo;
-					self.edit = false;
-					self.success = true;
-				});		
+			
+			// copy non null fields
+			for(var index in self.newInfo) { 
+				console.log("form["+index+"] => ("+self.newInfo[index]+")");
+				if ( self.newInfo[index] ) {
+					self.user[index] = self.newInfo[index];
+				}
+			}
+		
+			var inputObj     = evt.target["profilePicture"];
+			readProfilePic(inputObj, function(data) {
+				if ( data ) {
+					self.user["profile_picture"] = data;
+				}
+				
+				Cambrian.Profile.Save(self.user, function(err, profile) {
+					if ( !err) {
+						$scope.$apply(function() {
+							self.user = self.newInfo;
+							self.edit = false;
+							self.success = true;
+						});
+					}
+				});
+				
 			});
+			
 		};
 
 	}]);
