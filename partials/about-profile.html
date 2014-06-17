@@ -7,6 +7,24 @@
 		<button class="close" data-close="alert"></button>
 		<span>  Oh snap! </span>
 	</div>
+	<div class="form-group" ng-show="about.isEdit()">
+		<p>Select an image from your computer for your profile</p>
+		<div class="fileinput fileinput-new" data-provides="fileinput">
+			<div class="fileinput-new thumbnail" style="width: 200px; height: 150px;">
+				<img ng-src="{{profile.user.profile_picture}}" alt=""/>
+			</div>
+			<div class="fileinput-preview fileinput-exists thumbnail" style="max-width: 200px; max-height: 150px;">
+			</div>
+			<div>
+				<span class="btn default btn-file">
+					<span class="fileinput-new">Select image</span>
+					<span class="fileinput-exists">Change</span>
+					<input type="file" name="profilePicture">
+				</span>
+				<a href="#" class="btn default fileinput-exists" data-dismiss="fileinput">Remove</a>
+			</div>
+		</div>
+	</div>
 	<div class="form-group" ng-show="about.isEdit() || !about.isFieldNull(about.user.first_name)">
 		<label class="control-label">First Name</label>
 		<input ng-model="about.newInfo.first_name" id="txtFirstName" type="text" placeholder="{{about.user.first_name}}" class="form-control" ng-disabled="!about.isEdit()"/>
@@ -35,6 +53,7 @@
 		<label class="control-label">Skype ID</label>
 		<input ng-model="about.newInfo.skype_id" id="txtSkypeId" type="text" placeholder="{{about.user.skype_id}}" class="form-control" ng-disabled="!about.isEdit()"/>
 	</div>
+	<!--<form ng-submit="profile.changeProfilePic($event)">-->
 	<div class="margiv-top-10">
 		<a href ng-show="!about.isEdit()" ng-click="about.setEdit(true)" class="btn green">
 		Edit Info </a>

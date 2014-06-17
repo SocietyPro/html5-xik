@@ -275,9 +275,13 @@ var cambrianControllers = angular.module('cambrianControllers',['ui.utils']);
 
 		this.addFields = function() {
 			console.log("addFields");
-			console.log(this.newInfo.skype_id);
-			this.edit = false;
-			this.success = true;
+			Cambrian.Profile.Save(this.newInfo, function() {
+				$scope.$apply(function() {
+					self.user = this.newInfo;
+					self.edit = false;
+					self.success = true;
+				});		
+			});
 		};
 
 	}]);
