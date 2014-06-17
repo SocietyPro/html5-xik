@@ -170,23 +170,82 @@ var cambrianControllers = angular.module('cambrianControllers',['ui.utils']);
 		var self 		= this;
 		this.userId 	= $routeParams.userId;
 		this.user 		= null;
+		this.newInfo	= null;
 		this.edition	= false;
-
+		this.tab 		= 0;
+		this.aboutTab 	= 0;
+		
 		Cambrian.Profile.GetInfo(this.userId, function(err,profile){
+		
 			if ( !err) {
 				$scope.$apply(function() {
-					self.user = profile; 
+					self.user 		= profile; 
+					self.newInfo	= profile;
 				});		
 			}
 		});
 		
-		this.tab 		= 0;
-		this.aboutTab 	= 0;
+		var readProfilePic = function(inputObj, callback) {
+			console.log("changeProfilePic");
+		
+			var file 		= null,
+				reader 		= new FileReader();
+			
+			if ( inputObj.files.length == 0) {
+				console.log("No image selected");
+				callback(false);
+				return;
+			}
+			file = inputObj.files[0];
+			
+			if ( !file.type.match('image.*')) {
+				console.log("File is not an image "+ file.type);
+				callback(false);
+				return;
+			}
+
+			reader.onload = function(e) {
+				callback(e.target.result);
+			};
+
+			reader.readAsDataURL(file);
+		}
+		
 
 		this.isSet 		= function(checkTab) 	{ return this.tab === checkTab; };
 		this.setTab 	= function(activeTab) 	{ this.tab = activeTab; 		};
 		this.isEdition	= function()			{ return this.edition; 			}
-		this.setEdition = function(edition)		{ this.isEdtion = edition;		};
+		this.setEdition = function(edition)		{ this.edition = edition;		};
+		
+		this.save 		= function(evt) {
+			console.log("save");
+			
+			// copy non null fields
+			for(var index in self.newInfo) {
+				//console.log("form["+index+"] => ("+self.newInfo[index]+")");
+				if ( self.newInfo[index] ) {
+					self.user[index] = self.newInfo[index];
+				}
+			}
+		
+			var inputObj     = evt.target["profilePicture"];
+			readProfilePic(inputObj, function(data) {
+				console.log("profilePic: " + ((data)?data.substr(0, 15):"(null)") );
+				if ( data ) {
+					self.user["profile_picture"] = data;
+				}
+				
+				Cambrian.Profile.Save(self.user, function(err, profile) {
+					if ( !err) {
+						$scope.$apply(function() {
+							self.user 		= self.newInfo;
+							self.edition 	= false;
+						});
+					}
+				});
+				
+			});
+		}
 
 	}]);
 
@@ -229,31 +288,7 @@ var cambrianControllers = angular.module('cambrianControllers',['ui.utils']);
 		* @memberof profileController
  		* @instance
 		*/ 
-		var readProfilePic = function(inputObj, callback) {
-			console.log("changeProfilePic");
 		
-			var file 		= null,
-				reader 		= new FileReader();
-			
-			if ( inputObj.files.length == 0) {
-				console.log("No image selected");
-				callback(false);
-				return;
-			}
-			file = inputObj.files[0];
-			
-			if ( !file.type.match('image.*')) {
-				console.log("File is not an image "+ file.type);
-				callback(false);
-				return;
-			}
-
-			reader.onload = function(e) {
-				callback(e.target.result);
-			};
-
-			reader.readAsDataURL(file);
-		}
 		
 		this.isFieldNull = function(field) {
 			return field === undefined || field === null || field === "";
@@ -269,33 +304,6 @@ var cambrianControllers = angular.module('cambrianControllers',['ui.utils']);
 
 		this.addFields = function(evt) {
 			console.log("addFields");
-			
-			// copy non null fields
-			for(var index in self.newInfo) { 
-				console.log("form["+index+"] => ("+self.newInfo[index]+")");
-				if ( self.newInfo[index] ) {
-					self.user[index] = self.newInfo[index];
-				}
-			}
-		
-			var inputObj     = evt.target["profilePicture"];
-			readProfilePic(inputObj, function(data) {
-				if ( data ) {
-					self.user["profile_picture"] = data;
-				}
-				
-				Cambrian.Profile.Save(self.user, function(err, profile) {
-					if ( !err) {
-						$scope.$apply(function() {
-							self.user = self.newInfo;
-							self.edit = false;
-							self.success = true;
-						});
-					}
-				});
-				
-			});
-			
 		};
 
 	}]);

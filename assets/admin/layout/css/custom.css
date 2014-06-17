@@ -23,8 +23,11 @@
 #placeholder {
 display: block;
 height: 315px;
-width: 851px;
+/*width: 851px;*/
+min-width: 750px;
 margin: 0 auto;
+margin-left: -20px;
+margin-right: -20px;
 position: relative;
 }
 img {
