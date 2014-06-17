@@ -1,6 +1,6 @@
 <div class="login">
 	<div class="logo">
-		<img src="assets/admin/layout/img/logo-big.png" alt=""/>
+		
 	</div>
 	<!-- END LOGO -->
 
@@ -18,23 +18,22 @@
 
  
 		  <div ng-show="!regC.currentTab()"><!-- Show div if current tab is false -->
-			<h3 class="form-title">Welcome to Cambrian {{profile.name}}</h3>
+			<h3 class="form-title">Create new profile</h3>
 			<div ng-show="regC.invalid()" class="alert alert-danger"><!-- Show if usename has invalid character -->
 				<button class="close" data-close="alert"></button>
-				<span id="InvalidCharErr">
-				Invalid Character. </span>
+				<span id="InvalidCharErr">Invalid Character.</span>
 			</div>
 			<div class="form-group">
 				<!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
-				<label class="control-label visible-ie8 visible-ie9">Username</label>
+				<label class="control-label visible-ie8 visible-ie9">Profile name</label>
 				<div class="input-icon">
 					<i class="fa fa-user"></i>
-                    <input ng-model="regC.user.name" class="form-control placeholder-no-fix" type="text" autocomplete="off" placeholder="Username" maxlength="{{regC.maxlength}}" id="txtName" ui-keypress="{13:'regC.keypressCallback()'}" autofocus/>   
+                    <input ng-model="regC.user.name" class="form-control placeholder-no-fix" type="text" autocomplete="off" placeholder="profile name" maxlength="{{regC.maxlength}}" id="txtName" ui-keypress="{13:'regC.keypressCallback()'}" autofocus/>   
 				</div>
 			</div>
 			<div class="form-actions">
 				<button type="button" class="btn" ng-hide="regC.firstLogin()" id="btnCancel" ng-click="regC.setTab(true)">
-				<i class="m-icon-swapleft"></i> Cancel<!-- Returns to List View (if is the first login hide)-->
+					<i class="m-icon-swapleft"></i>Cancel<!-- Returns to List View (if is the first login hide)-->
 				</button>
 				<button type="submit" class="btn green pull-right" ng-disabled="regC.invalid() || regC.gotError()" id="btnCreate">
 				Create <i class="m-icon-swapright m-icon-white"></i> <!-- Create Profile and go to welcome page (if has error the button is disabled) -->
@@ -44,7 +43,7 @@
 		  <div ng-show="regC.currentTab()"><!-- show div if current tab is true -->
 
 			<div class="login-options">
-				<h4>Choose an account</h4>
+				<h4>Choose a profile</h4>
 				<ul>
 					<li ng-repeat="profile in regC.profiles" class="user-listing"><!-- repeat for each profile -->
 						<a href ng-click="regC.selectProfile(profile)">{{profile.name}}</a>
@@ -64,7 +63,7 @@
 
 	<!-- BEGIN COPYRIGHT -->
 	<div class="copyright">
-		 2014 &copy; Cambrian. 
+		 2014 &copy; Cambrian
 	</div>
 	<!-- END COPYRIGHT -->
 
