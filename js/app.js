@@ -15,6 +15,11 @@
 				templateUrl: 'partials/profile.html',
 				controller: 'profileController',
 				controllerAs: 'profile'
+			})
+			.when('/',{
+				templateUrl: 'partials/login.html',
+				controller: 'registerController',
+				controllerAs: 'regC'
 			});
 		
     }]);
