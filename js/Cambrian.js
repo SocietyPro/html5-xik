@@ -107,6 +107,9 @@ var Cambrian = {
 											}
 
 										} catch(err) {
+											console.log( err );
+											console.log( textContent.substring(textContent.length - 15, 16) );
+											
 											callback(err, profiles);
 										}
 										
@@ -211,7 +214,6 @@ var Cambrian = {
 						function() {
 							if ( typeof callback == 'function') {
 								callback(err, newProfile);
-								toastr.success("Profile picture saved");
 							}
 						}
 					);

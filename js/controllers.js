@@ -247,6 +247,7 @@ var cambrianControllers = angular.module('cambrianControllers',['ui.utils']);
 							$scope.$apply(function() {
 								self.user 		= self.newInfo;
 								self.edition 	= false;
+								toastr.success("Changes saved");
 							});
 						}
 					});
